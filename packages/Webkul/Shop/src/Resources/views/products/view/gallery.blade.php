@@ -95,6 +95,9 @@
                     this.baseFile.type = 'video';
 
                     this.baseFile.path = this.media.videos[0].video_url;
+
+                    // No image @load event will fire, so stop shimmer immediately
+                    this.isMediaLoading = false;
                 }
 
                 window.addEventListener('resize', () => {

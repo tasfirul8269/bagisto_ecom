@@ -9,38 +9,13 @@
 
     <div style="display:flex;flex-direction:column;gap:14px;">
 
-        {{-- Estimate Shipping --}}
-        @if (core()->getConfigData('sales.checkout.shopping_cart.estimate_shipping'))
-            <template v-if="cart.have_stockable_items">
-                @include('shop::checkout.cart.summary.estimate-shipping')
-            </template>
-        @endif
-
         {{-- Sub Total --}}
         {!! view_render_event('frooxi.shop.checkout.cart.summary.sub_total.before') !!}
 
-        <template v-if="displayTax.subtotal == 'including_tax'">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.sub-total')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_sub_total_incl_tax }}</p>
-            </div>
-        </template>
-        <template v-else-if="displayTax.subtotal == 'both'">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.sub-total-excl-tax')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_sub_total }}</p>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.sub-total-incl-tax')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_sub_total_incl_tax }}</p>
-            </div>
-        </template>
-        <template v-else>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.sub-total')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_sub_total }}</p>
-            </div>
-        </template>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.sub-total')</p>
+            <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_sub_total }}</p>
+        </div>
 
         {!! view_render_event('frooxi.shop.checkout.cart.summary.sub_total.after') !!}
 
@@ -53,65 +28,6 @@
         </div>
 
         {!! view_render_event('frooxi.shop.checkout.cart.summary.discount_amount.after') !!}
-
-        {{-- Coupon --}}
-        {!! view_render_event('frooxi.shop.checkout.cart.summary.coupon.before') !!}
-        @include('shop::checkout.coupon')
-        {!! view_render_event('frooxi.shop.checkout.cart.summary.coupon.after') !!}
-
-        {{-- Shipping --}}
-        {!! view_render_event('frooxi.shop.checkout.onepage.summary.delivery_charges.before') !!}
-
-        <template v-if="displayTax.shipping == 'including_tax'">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.delivery-charges')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_shipping_amount_incl_tax }}</p>
-            </div>
-        </template>
-        <template v-else-if="displayTax.shipping == 'both'">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.delivery-charges-excl-tax')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_shipping_amount }}</p>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.delivery-charges-incl-tax')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_shipping_amount_incl_tax }}</p>
-            </div>
-        </template>
-        <template v-else>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.delivery-charges')</p>
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_shipping_amount }}</p>
-            </div>
-        </template>
-
-        {!! view_render_event('frooxi.shop.checkout.onepage.summary.delivery_charges.after') !!}
-
-        {{-- Tax --}}
-        {!! view_render_event('frooxi.shop.checkout.cart.summary.tax.before') !!}
-
-        <div style="display:flex;justify-content:space-between;align-items:center;" v-if="! cart.tax_total">
-            <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.tax')</p>
-            <p style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">@{{ cart.formatted_tax_total }}</p>
-        </div>
-
-        <div style="border-top:1px solid #f3f4f6;padding-top:12px;" v-else>
-            <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" @click="cart.show_taxes = ! cart.show_taxes">
-                <p style="font-family:'Montserrat',sans-serif;font-size:13px;color:#6b7280;">@lang('shop::app.checkout.cart.summary.tax')</p>
-                <p style="display:flex;align-items:center;gap:4px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#111;">
-                    @{{ cart.formatted_tax_total }}
-                    <span class="text-lg" :class="{'icon-arrow-up': cart.show_taxes, 'icon-arrow-down': ! cart.show_taxes}"></span>
-                </p>
-            </div>
-            <div v-show="cart.show_taxes" style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
-                <div style="display:flex;justify-content:space-between;" v-for="(amount, index) in cart.applied_taxes">
-                    <p style="font-family:'Montserrat',sans-serif;font-size:12px;color:#9ca3af;">@{{ index }}</p>
-                    <p style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:#374151;">@{{ amount }}</p>
-                </div>
-            </div>
-        </div>
-
-        {!! view_render_event('frooxi.shop.checkout.cart.summary.tax.after') !!}
 
         {{-- Divider --}}
         <div style="border-top:1px solid #111;"></div>

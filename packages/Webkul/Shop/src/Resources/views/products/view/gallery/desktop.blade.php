@@ -115,6 +115,7 @@
                 alt="{{ $product->name }}"
                 @click="isImageZooming = !isImageZooming"
                 @loadeddata="onMediaLoad()"
+                @loadedmetadata="onMediaLoad()"
                 :key="baseFile.path"
             >
                 <source

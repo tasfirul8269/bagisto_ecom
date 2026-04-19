@@ -266,16 +266,7 @@
                                     <div style="text-align:right;flex-shrink:0;">
                                         {!! view_render_event('frooxi.shop.checkout.cart.total.before') !!}
 
-                                        <template v-if="displayTax.prices == 'including_tax'">
-                                            <p style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:#111;">@{{ item.formatted_total_incl_tax }}</p>
-                                        </template>
-                                        <template v-else-if="displayTax.prices == 'both'">
-                                            <p style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:#111;">@{{ item.formatted_total_incl_tax }}</p>
-                                            <span style="font-size:11px;color:#9ca3af;">@lang('shop::app.checkout.cart.index.excl-tax') <strong>@{{ item.formatted_total }}</strong></span>
-                                        </template>
-                                        <template v-else>
-                                            <p style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:#111;">@{{ item.formatted_total }}</p>
-                                        </template>
+                                        <p style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:#111;">@{{ item.formatted_total }}</p>
 
                                         {!! view_render_event('frooxi.shop.checkout.cart.total.after') !!}
                                         {!! view_render_event('frooxi.shop.checkout.cart.remove_button.before') !!}
@@ -359,14 +350,6 @@
 
                         applied: {
                             quantity: {},
-                        },
-
-                        displayTax: {
-                            prices: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_prices') }}",
-
-                            subtotal: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_subtotal') }}",
-
-                            shipping: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_shipping_amount') }}",
                         },
 
                         isLoading: true,
