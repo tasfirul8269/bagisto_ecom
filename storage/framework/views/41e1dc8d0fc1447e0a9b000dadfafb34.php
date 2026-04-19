@@ -1,7 +1,7 @@
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
 
 $__newAttributes = [];
-$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames((['position' => 'bottom-left']));
+$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames((['position' => 'bottom-right']));
 
 foreach ($attributes->all() as $__key => $__value) {
     if (in_array($__key, $__propNames)) {
@@ -16,7 +16,7 @@ $attributes = new \Illuminate\View\ComponentAttributeBag($__newAttributes);
 unset($__propNames);
 unset($__newAttributes);
 
-foreach (array_filter((['position' => 'bottom-left']), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
+foreach (array_filter((['position' => 'bottom-right']), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 }
 
@@ -58,7 +58,7 @@ unset($__defined_vars, $__key, $__value); ?>
     <?php endif; ?>
 </v-dropdown>
 
-<?php if (! $__env->hasRenderedOnce('87a1c93d-c9c0-4d95-a674-c28d9a62edf5')): $__env->markAsRenderedOnce('87a1c93d-c9c0-4d95-a674-c28d9a62edf5');
+<?php if (! $__env->hasRenderedOnce('4324ecac-a415-4223-892d-5c2747a7370e')): $__env->markAsRenderedOnce('4324ecac-a415-4223-892d-5c2747a7370e');
 $__env->startPush('scripts'); ?>
     <script
         type="text/x-template"
@@ -66,7 +66,7 @@ $__env->startPush('scripts'); ?>
     >
         <div>
             <div
-                class="flex select-none"
+                class="select-none"
                 ref="toggleBlock"
                 @click="toggle()"
             >
@@ -84,7 +84,7 @@ $__env->startPush('scripts'); ?>
                 leave-to-class="scale-95 transform opacity-0"
             >
                 <div
-                    class="absolute z-10 w-max rounded bg-white shadow-[0px_8px_10px_0px_rgba(0,0,0,0.20),0px_6px_30px_0px_rgba(0,0,0,0.12),0px_16px_24px_0px_rgba(0,0,0,0.14)] dark:bg-gray-900"
+                    class="absolute z-20 w-max rounded-[20px] bg-white shadow-[0px_10px_84px_rgba(0,0,0,0.1)] max-md:rounded-lg"
                     :style="positionStyles"
                     v-show="isActive"
                 >
@@ -153,21 +153,21 @@ $__env->startPush('scripts'); ?>
 
                         case 'top-left':
                             return [
-                                `min-width: ${this.toggleBlockWidth}px`
-                                `bottom: ${this.toggleBlockHeight*2}px`,
+                                `min-width: ${this.toggleBlockWidth}px`,
+                                `bottom: ${this.toggleBlockHeight}px`,
                                 'left: 0',
                             ];
 
                         case 'top-right':
                             return [
-                                `min-width: ${this.toggleBlockWidth}px`
-                                `bottom: ${this.toggleBlockHeight*2}px`,
+                                `min-width: ${this.toggleBlockWidth}px`,
+                                `bottom: ${this.toggleBlockHeight}px`,
                                 'right: 0',
                             ];
 
                         default:
                             return [
-                                `min-width: ${this.toggleBlockWidth}px`
+                                `min-width: ${this.toggleBlockWidth}px`,
                                 `top: ${this.toggleBlockHeight}px`,
                                 'left: 0',
                             ];
@@ -177,6 +177,20 @@ $__env->startPush('scripts'); ?>
 
             methods: {
                 toggle() {
+                    /**
+                     * If still somehow width is zero then this will check for width one more time.
+                     */
+                    if (this.toggleBlockWidth === 0) {
+                        this.toggleBlockWidth = this.$refs.toggleBlock.clientWidth;
+                    }
+
+                    /**
+                     * If still somehow height is zero then this will check for height one more time.
+                     */
+                    if (this.toggleBlockHeight === 0) {
+                        this.toggleBlockHeight = this.$refs.toggleBlock.clientHeight;
+                    }
+
                     this.isActive = ! this.isActive;
                 },
 
@@ -189,4 +203,4 @@ $__env->startPush('scripts'); ?>
         });
     </script>
 <?php $__env->stopPush(); endif; ?>
-<?php /**PATH D:\Frooxi new\Iqbal Project\NextOutfit\packages\Webkul\Admin\src/resources/views/components/dropdown/index.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\Frooxi new\Iqbal Project\NextOutfit\packages\Webkul\Shop\src/resources/views/components/dropdown/index.blade.php ENDPATH**/ ?>

@@ -3,25 +3,24 @@
     :key='flash.uid'
     :flash="flash"
     @onRemove="remove($event)"
->
-</v-flash-item>
+/>
 
-<?php if (! $__env->hasRenderedOnce('40e03f39-1ab5-4802-8e25-eede805cbb99')): $__env->markAsRenderedOnce('40e03f39-1ab5-4802-8e25-eede805cbb99');
+<?php if (! $__env->hasRenderedOnce('9778a515-3a7c-4e20-bba1-d3f840a699ed')): $__env->markAsRenderedOnce('9778a515-3a7c-4e20-bba1-d3f840a699ed');
 $__env->startPush('scripts'); ?>
     <script
         type="text/x-template"
         id="v-flash-item-template"
     >
         <div
-            class="flex w-max justify-between gap-12 rounded-full p-3"
+            class="flex w-max max-w-[408px] justify-between gap-12 rounded-lg px-5 py-3 max-sm:max-w-80 max-sm:items-center max-sm:gap-2 max-sm:p-3"
             :style="typeStyles[flash.type]['container']"
         >
             <p
-                class="flex items-center break-all text-sm"
+                class="flex items-center break-words text-sm"
                 :style="typeStyles[flash.type]['message']"
             >
                 <span
-                    class="icon-toast-done rounded-full bg-white text-2xl dark:bg-gray-900 ltr:mr-2.5 rtl:ml-2.5"
+                    class="icon-toast-done text-2xl ltr:mr-2.5 rtl:ml-2.5"
                     :class="iconClasses[flash.type]"
                     :style="typeStyles[flash.type]['icon']"
                 ></span>
@@ -30,12 +29,10 @@ $__env->startPush('scripts'); ?>
             </p>
 
 			<span
-                class="cursor-pointer underline"
-                :style="typeStyles[flash.type]['message']"
+                class="icon-cancel max-h-4 max-w-4 cursor-pointer"
+                :style="typeStyles[flash.type]['icon']"
                 @click="remove"
-            >
-                Close
-            </span>
+            ></span>
         </div>
     </script>
 
@@ -48,46 +45,46 @@ $__env->startPush('scripts'); ?>
             data() {
                 return {
                     iconClasses: {
-                        success: 'icon-done',
+                        success: 'icon-toast-done',
 
-                        error: 'icon-cancel-1',
+                        error: 'icon-toast-error',
 
-                        warning: 'icon-information',
+                        warning: 'icon-toast-exclamation-mark',
 
-                        info: 'icon-processing',
+                        info: 'icon-toast-info',
                     },
 
                     typeStyles: {
                         success: {
-                            container: 'background: #059669',
+                            container: 'background: #D4EDDA',
 
-                            message: 'color: #FFFFFF',
+                            message: 'color: #155721',
 
-                            icon: 'color: #059669'
+                            icon: 'color: #155721'
                         },
 
                         error: {
-                            container: 'background: #EF4444',
+                            container: 'background: #F8D7DA',
 
-                            message: 'color: #FFFFFF',
+                            message: 'color: #721C24',
 
-                            icon: 'color: #EF4444'
+                            icon: 'color: #721C24'
                         },
 
                         warning: {
-                            container: 'background: #FACC15',
+                            container: 'background: #FFF3CD',
 
-                            message: 'color: #1F2937',
+                            message: 'color: #856404',
 
-                            icon: 'color: #FACC15'
+                            icon: 'color: #856404'
                         },
 
                         info: {
-                            container: 'background: #0284C7',
+                            container: 'background: #E2E3E5',
 
-                            message: 'color: #FFFFFF',
+                            message: 'color: #383D41',
 
-                            icon: 'color: #0284C7'
+                            icon: 'color: #383D41'
                         },
                     },
                 };
@@ -109,4 +106,4 @@ $__env->startPush('scripts'); ?>
         });
     </script>
 <?php $__env->stopPush(); endif; ?>
-<?php /**PATH D:\Frooxi new\Iqbal Project\NextOutfit\packages\Webkul\Admin\src/resources/views/components/flash-group/item.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\Frooxi new\Iqbal Project\NextOutfit\packages\Webkul\Shop\src/resources/views/components/flash-group/item.blade.php ENDPATH**/ ?>

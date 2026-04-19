@@ -41,7 +41,7 @@
     <v-sidebar-collapse></v-sidebar-collapse>
 </div>
 
-<?php if (! $__env->hasRenderedOnce('0301755e-f794-4ef9-9e5e-9250d922beba')): $__env->markAsRenderedOnce('0301755e-f794-4ef9-9e5e-9250d922beba');
+<?php if (! $__env->hasRenderedOnce('cbba39b9-a1f4-41c9-80a1-29e058429207')): $__env->markAsRenderedOnce('cbba39b9-a1f4-41c9-80a1-29e058429207');
 $__env->startPush('scripts'); ?>
     <script
         type="text/x-template"

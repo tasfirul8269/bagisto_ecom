@@ -1,6 +1,6 @@
 <v-button <?php echo e($attributes); ?>></v-button>
 
-<?php if (! $__env->hasRenderedOnce('31a0847c-3f07-4be6-893a-d14adf59e72b')): $__env->markAsRenderedOnce('31a0847c-3f07-4be6-893a-d14adf59e72b');
+<?php if (! $__env->hasRenderedOnce('0f588be9-bc72-45a4-a7de-3da40d1f4cc0')): $__env->markAsRenderedOnce('0f588be9-bc72-45a4-a7de-3da40d1f4cc0');
 $__env->startPush('scripts'); ?>
     <script
         type="text/x-template"

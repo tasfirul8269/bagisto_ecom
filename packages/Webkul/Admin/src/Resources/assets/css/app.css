@@ -4,10 +4,10 @@
 
 /* Frooxi Admin Theme - Custom Properties */
 :root {
-  --frooxi-primary: #D4A84B;
-  --frooxi-primary-dark: #B8923F;
-  --frooxi-primary-light: #E8C97A;
-  --frooxi-secondary: #1A1A1A;
+  --frooxi-primary: #000000;
+  --frooxi-primary-dark: #1a1a1a;
+  --frooxi-primary-light: #333333;
+  --frooxi-secondary: #ffffff;
   --frooxi-success: #10B981;
   --frooxi-warning: #F59E0B;
   --frooxi-danger: #EF4444;
@@ -35,15 +35,15 @@
 
     /* Frooxi Primary Button */
     .primary-button {
-        @apply rounded-xl bg-[#D4A84B] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200;
+        @apply rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200;
     }
 
     .primary-button:hover {
-        @apply bg-[#B8923F] shadow-md;
+        @apply bg-gray-800 shadow-md;
     }
 
     .primary-button:active {
-        @apply bg-[#A07A2F] scale-[0.98];
+        @apply bg-gray-900 scale-[0.98];
     }
 
     /* Frooxi Secondary Button */
@@ -52,7 +52,7 @@
     }
 
     .secondary-button:hover {
-        @apply border-[#D4A84B] bg-gray-50 text-[#D4A84B];
+        @apply border-black bg-gray-50 text-black;
     }
 
     /* Frooxi Card Style */
@@ -81,7 +81,7 @@
     .form-input:focus,
     .form-select:focus,
     .form-textarea:focus {
-        @apply border-[#D4A84B] outline-none ring-2 ring-[#D4A84B]/20;
+        @apply border-black outline-none ring-2 ring-black/20;
     }
 
     /* Frooxi Badge/Status */
@@ -634,11 +634,11 @@
 
     /* Action links */
     .action-link {
-        @apply text-sm font-medium text-[#D4A84B] transition-colors duration-150;
+        @apply text-sm font-medium text-black transition-colors duration-150;
     }
 
     .action-link:hover {
-        @apply text-[#B8923F];
+        @apply text-gray-700;
     }
 }
 

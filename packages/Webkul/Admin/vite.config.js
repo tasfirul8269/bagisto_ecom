@@ -32,9 +32,6 @@ export default defineConfig(({ mode }) => {
                     "src/Resources/assets/css/app.css",
                     "src/Resources/assets/js/app.js",
                     "src/Resources/assets/js/chart.js",
-                    // Admin V2
-                    "src/Resources/assets/css/admin-v2.css",
-                    "src/Resources/assets/js/admin-v2.js",
                 ],
                 refresh: true,
             }),
