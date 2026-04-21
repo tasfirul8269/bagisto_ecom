@@ -211,7 +211,7 @@
                                 class="secondary-button text-sm"
                                 @click="openVariantSizePicker(attribute)"
                             >
-                                {{ variantSelection[attribute.code] ? 'Change Size' : 'Select Size' }}
+                                @{{ variantSelection[attribute.code] ? 'Change Size' : 'Select Size' }}
                             </button>
                         </template>
 
