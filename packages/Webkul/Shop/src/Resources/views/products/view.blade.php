@@ -322,15 +322,19 @@
         </div>
 
         <div id="pdp-tab-content-delivery" data-tab-panel="delivery" style="display: none; padding: 16px 0; font-size: 14px; line-height: 1.7; color: #555;">
-            <p>Standard delivery: 3–5 business days</p>
-            <p>Express delivery: 1–2 business days</p>
-            <p style="margin-top: 8px;">Returns accepted within 14 days of delivery. Items must be unworn, unwashed, and in original packaging with tags attached.</p>
+            @if (! empty($product->delivery_timeline))
+                {!! nl2br(e($product->delivery_timeline)) !!}
+            @else
+                <p style="color: #aaa;">No delivery information available.</p>
+            @endif
         </div>
 
         <div id="pdp-tab-content-care" data-tab-panel="care" style="display: none; padding: 16px 0; font-size: 14px; line-height: 1.7; color: #555;">
-            <p>Hand wash or dry clean recommended.</p>
-            <p>Do not bleach. Iron on low heat.</p>
-            <p>Store in a cool, dry place away from direct sunlight.</p>
+            @if (! empty($product->care_instructions))
+                {!! nl2br(e($product->care_instructions)) !!}
+            @else
+                <p style="color: #aaa;">No care instructions available.</p>
+            @endif
         </div>
     </div>
 
@@ -468,39 +472,7 @@
                                 <pre style="font-size: 14px; color: #666; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; font-family: inherit; margin: 0; margin-top: 12px;" v-pre>{!! $product->short_description !!}</pre>
                             @endif
 
-                            <!-- Custom Attributes -->
-                            @if (count($attributeData))
-                                <div class="mt-5 grid gap-2" style="grid-template-columns: auto 1fr;">
-                                    @foreach ($customAttributeValues as $customAttributeValue)
-                                        @if (! empty($customAttributeValue['value']))
-                                            <p class="text-sm text-zinc-500" v-pre>{{ $customAttributeValue['label'] }}</p>
 
-                                            @if ($customAttributeValue['type'] == 'file')
-                                                <a
-                                                    href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
-                                                    download="{{ $customAttributeValue['label'] }}"
-                                                    class="text-sm text-zinc-500"
-                                                >
-                                                    <span class="icon-download text-xl"></span>
-                                                </a>
-                                            @elseif ($customAttributeValue['type'] == 'image')
-                                                <a
-                                                    href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
-                                                    download="{{ $customAttributeValue['label'] }}"
-                                                >
-                                                    <img
-                                                        class="h-5 w-5 min-h-5 min-w-5"
-                                                        src="{{ Storage::url($customAttributeValue['value']) }}"
-                                                        alt="Attribute Image"
-                                                    />
-                                                </a>
-                                            @else
-                                                <p class="text-sm text-zinc-500" v-pre>{{ $customAttributeValue['value'] ?? '-' }}</p>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </div>
-                            @endif
 
                             <!-- Divider -->
                             <div style="border-top: 1px solid #e5e5e5; margin-top: 24px; margin-bottom: 12px;"></div>
@@ -660,29 +632,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Accordion Item 2: Additional Information (conditional) -->
-                                @if (count($attributeData))
-                                <div style="border-bottom: 1px solid #e5e5e5;">
-                                    <div onclick="toggleDesktopAccordion(this)" style="display: flex; cursor: pointer; align-items: center; justify-content: space-between; padding: 16px 0; user-select: none;">
-                                        <p style="font-size: 14px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #1a1a1a;">Additional Information</p>
-                                        <span style="font-size: 18px; color: #1a1a1a; transition: transform 0.3s;">+</span>
-                                    </div>
-                                    <div style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <div style="padding: 0 0 16px 0;">
-                                            <div style="display: grid; gap: 12px;">
-                                                @foreach ($customAttributeValues as $customAttributeValue)
-                                                    @if (! empty($customAttributeValue['value']))
-                                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                                            <p style="font-size: 14px; color: #666;">{!! $customAttributeValue['label'] !!}</p>
-                                                            <p style="font-size: 14px; color: #1a1a1a;">{!! $customAttributeValue['value'] !!}</p>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
+
 
                                 <!-- Accordion Item 3: Delivery & Returns -->
                                 <div style="border-bottom: 1px solid #e5e5e5;">
@@ -692,9 +642,11 @@
                                     </div>
                                     <div style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
                                         <div style="font-size: 14px; line-height: 1.7; color: #666; padding: 0 0 16px 0;">
-                                            <p>Standard delivery: 3–5 business days</p>
-                                            <p>Express delivery: 1–2 business days</p>
-                                            <p style="margin-top: 8px;">Returns accepted within 14 days of delivery. Items must be unworn, unwashed, and in original packaging with tags attached.</p>
+                                            @if (! empty($product->delivery_timeline))
+                                                {!! nl2br(e($product->delivery_timeline)) !!}
+                                            @else
+                                                <p style="color: #aaa;">No delivery information available.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -707,9 +659,11 @@
                                     </div>
                                     <div style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
                                         <div style="font-size: 14px; line-height: 1.7; color: #666; padding: 0 0 16px 0;">
-                                            <p>Hand wash or dry clean recommended.</p>
-                                            <p>Do not bleach. Iron on low heat.</p>
-                                            <p>Store in a cool, dry place away from direct sunlight.</p>
+                                            @if (! empty($product->care_instructions))
+                                                {!! nl2br(e($product->care_instructions)) !!}
+                                            @else
+                                                <p style="color: #aaa;">No care instructions available.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -45,44 +45,48 @@
             <template v-if="isLoading">
                 <x-admin::shimmer.datagrid.table.head :isMultiRow="true" />
             </template>
-
+    
             <template v-else>
-                <!-- Grid Header Columns -->
-                <div class="row grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-center border-b px-2 sm:px-4 py-2.5 dark:border-gray-800">
-                    <div
-                        class="flex select-none items-center gap-2.5"
-                        v-for="(columnGroup, index) in [['increment_id', 'created_at', 'status'], ['base_grand_total', 'method', 'channel_id'], ['full_name', 'customer_email', 'location'], ['items']]"
-                    >
-                        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
-                            <span class="[&>*]:after:content-['_/_']">
-                                <template v-for="column in columnGroup">
-                                    <span
-                                        class="after:content-['/'] last:after:content-['']"
-                                        :class="{
-                                            'font-medium text-gray-800 dark:text-white': applied.sort.column == column,
-                                            'cursor-pointer hover:text-gray-800 dark:hover:text-white': available.columns.find(columnTemp => columnTemp.index === column)?.sortable,
-                                        }"
-                                        @click="
-                                            available.columns.find(columnTemp => columnTemp.index === column)?.sortable ? sort(available.columns.find(columnTemp => columnTemp.index === column)) : {}
-                                        "
-                                    >
-                                        @{{ available.columns.find(columnTemp => columnTemp.index === column)?.label }}
-                                    </span>
-                                </template>
-                            </span>
-
-                            <i
-                                class="align-text-bottom text-base text-gray-800 dark:text-white ltr:ml-1.5 rtl:mr-1.5"
-                                :class="[applied.sort.order === 'asc' ? 'icon-down-stat': 'icon-up-stat']"
-                                v-if="columnGroup.includes(applied.sort.column)"
-                            >
-                            </i>
-                        </p>
-                    </div>
+                <!-- Grid Header -->
+                <div class="row grid items-center border-b px-4 py-2.5 dark:border-gray-800"
+                    style="grid-template-columns: 130px 160px 1fr 170px 170px 90px 36px; column-gap: 20px;">
+    
+                    <!-- Order / Date -->
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        @lang('admin::app.sales.orders.index.datagrid.order-id')
+                    </p>
+    
+                    <!-- Status -->
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        @lang('admin::app.sales.orders.index.datagrid.status')
+                    </p>
+    
+                    <!-- Customer -->
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        @lang('admin::app.sales.orders.index.datagrid.customer')
+                    </p>
+    
+                    <!-- Total -->
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        @lang('admin::app.sales.orders.index.datagrid.grand-total')
+                    </p>
+    
+                    <!-- Payment -->
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        @lang('admin::app.sales.orders.index.datagrid.pay-via')
+                    </p>
+    
+                    <!-- Items -->
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        @lang('admin::app.sales.orders.index.datagrid.items')
+                    </p>
+    
+                    <!-- Action -->
+                    <span></span>
                 </div>
             </template>
         </template>
-
+    
         <template #body="{
             isLoading,
             available,
@@ -94,26 +98,29 @@
             <template v-if="isLoading">
                 <x-admin::shimmer.datagrid.table.body :isMultiRow="true" />
             </template>
-
+    
             <template v-else>
                 <!-- Order Rows -->
                 <div
-                    class="row grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-4 border-b px-2 sm:px-4 py-2.5 transition-all hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950"
+                    class="row grid items-center border-b px-4 py-3.5 transition-all hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950"
+                    style="grid-template-columns: 130px 160px 1fr 170px 170px 90px 36px; column-gap: 20px;"
                     v-for="record in available.records"
                 >
-                    <!-- Order Id, Created, Status Section -->
-                    <div class="flex flex-col gap-1.5">
-                        <p class="text-sm sm:text-base font-semibold text-gray-800 dark:text-white">
+                    <!-- Order ID + Date -->
+                    <div class="flex flex-col gap-0.5">
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">
                             @{{ "@lang('admin::app.sales.orders.index.datagrid.id')".replace(':id', record.increment_id) }}
                         </p>
-
-                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                        <p class="text-xs text-gray-400 dark:text-gray-500">
                             @{{ record.created_at }}
                         </p>
-                        
-                        <!-- Status Dropdown -->
+                    </div>
+    
+                    <!-- Status Dropdown (styled badge) -->
+                    <div style="width: fit-content;">
                         <select
-                            class="rounded-md border px-2 py-1 text-xs sm:text-sm cursor-pointer hover:border-gray-400 focus:border-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+                            class="order-status-badge"
+                            :class="'status-' + record.status"
                             :value="record.status"
                             :data-order-id="record.id"
                             onchange="window.updateOrderStatus(this)"
@@ -123,47 +130,42 @@
                             <option value="shipped">@lang('admin::app.sales.orders.index.datagrid.shipped')</option>
                         </select>
                     </div>
-
-                    <!-- Total Amount, Pay Via, Channel -->
-                    <div class="flex flex-col gap-1.5">
-                        <p class="text-sm sm:text-base font-semibold text-gray-800 dark:text-white">
-                            @{{ $admin.formatPrice(record.base_grand_total) }}
-                        </p>
-
-                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-                            @lang('admin::app.sales.orders.index.datagrid.pay-by', ['method' => ''])@{{ record.method }}
-                        </p>
-
-                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-                            @{{ record.channel_name }}
-                        </p>
-                    </div>
-
-                    <!-- Customer, Email, Location Section -->
-                    <div class="flex flex-col gap-1.5">
-                        <p class="text-sm sm:text-base text-gray-800 dark:text-white">
+    
+                    <!-- Customer + Email -->
+                    <div class="flex flex-col gap-0.5 min-w-0">
+                        <p class="text-sm font-medium text-gray-800 dark:text-white truncate">
                             @{{ record.full_name }}
                         </p>
-
-                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                        <p class="text-xs text-gray-400 dark:text-gray-500 truncate">
                             @{{ record.customer_email }}
                         </p>
-
-                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-                            @{{ record.location }}
+                    </div>
+    
+                    <!-- Grand Total -->
+                    <div>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">
+                            @{{ $admin.formatPrice(record.base_grand_total) }}
                         </p>
                     </div>
-
-                    <!-- Images Section -->
-                    <div class="flex items-center justify-between gap-x-2">
-                        <div
-                            class="flex flex-col gap-1.5 text-xs sm:text-sm"
-                            v-html="record.items"
-                        >
-                        </div>
-
+    
+                    <!-- Payment Method -->
+                    <div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            @{{ record.method }}
+                        </p>
+                    </div>
+    
+                    <!-- Items -->
+                    <div
+                        class="text-xs"
+                        v-html="record.items"
+                    >
+                    </div>
+    
+                    <!-- View Action -->
+                    <div class="flex justify-end">
                         <a :href="'{{ route('admin.sales.orders.view', ':id') }}'.replace(':id', record.id)">
-                            <span class="icon-sort-right rtl:icon-sort-left cursor-pointer p-1.5 text-xl sm:text-2xl hover:rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 ltr:ml-1 rtl:mr-1"></span>
+                            <span class="icon-sort-right rtl:icon-sort-left cursor-pointer p-1.5 text-2xl hover:rounded-md hover:bg-gray-200 dark:hover:bg-gray-800"></span>
                         </a>
                     </div>
                 </div>
@@ -174,6 +176,31 @@
     @include('admin::customers.customers.index.create')
 
     @pushOnce('scripts')
+        <style>
+            .order-status-badge {
+                display: inline-flex;
+                align-items: center;
+                padding: 4px 10px;
+                border-radius: 9999px;
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.03em;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                appearance: none;
+                -webkit-appearance: none;
+                background-image: url('data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2210%22 height%3D%226%22 fill%3D%22none%22%3E%3Cpath d%3D%22M1 1l4 4 4-4%22 stroke%3D%22%23666%22 stroke-width%3D%221.5%22 stroke-linecap%3D%22round%22 stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+                background-repeat: no-repeat;
+                background-position: right 7px center;
+                padding-right: 22px;
+                transition: opacity .15s;
+            }
+            .order-status-badge:hover { opacity: .85; }
+            .status-pending    { background: #fef3c7; color: #92400e; }
+            .status-processing { background: #dbeafe; color: #1e40af; }
+            .status-shipped    { background: #d1fae5; color: #065f46; }
+        </style>
         <script
             type="text/x-template"
             id="v-customer-search-template"
