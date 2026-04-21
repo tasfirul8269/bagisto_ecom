@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Admin\Http\Controllers\Sales\OrderController;
+use Webkul\Admin\Http\Controllers\Sales\PaymentMethodController;
 
 /**
  * Sales routes.
@@ -20,5 +21,13 @@ Route::prefix('sales')->group(function () {
         Route::post('comment/{order_id}', 'comment')->name('admin.sales.orders.comment');
         Route::post('update-status/{id}', 'updateStatus')->name('admin.sales.orders.update_status');
         Route::get('search', 'search')->name('admin.sales.orders.search');
+    });
+
+    /**
+     * Payment methods routes.
+     */
+    Route::controller(PaymentMethodController::class)->prefix('payment-methods')->group(function () {
+        Route::get('', 'index')->name('admin.sales.payment_methods.index');
+        Route::post('', 'store')->name('admin.sales.payment_methods.store');
     });
 });

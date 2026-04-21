@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Webkul\Shop\Http\Controllers\BkashController;
 use Webkul\Shop\Http\Controllers\CartController;
 use Webkul\Shop\Http\Controllers\OnepageController;
 use Webkul\Shop\Http\Controllers\SSLCommerzController;
@@ -17,6 +18,20 @@ Route::controller(OnepageController::class)->prefix('checkout/onepage')->group(f
 
     Route::get('success', 'success')->name('shop.checkout.onepage.success');
 });
+
+/**
+ * bKash tokenized payment routes.
+ *
+ * The callback route receives a GET redirect from bKash after payment.
+ */
+Route::controller(BkashController::class)
+    ->prefix('checkout/bkash')
+    ->group(function () {
+        Route::get('pay', 'pay')->name('shop.bkash.pay');
+        Route::get('callback', 'callback')->name('shop.bkash.callback');
+        Route::get('cancel', 'cancel')->name('shop.bkash.cancel');
+        Route::get('failure', 'failure')->name('shop.bkash.failure');
+    });
 
 /**
  * SSLCommerz payment routes.

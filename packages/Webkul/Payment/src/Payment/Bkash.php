@@ -14,12 +14,14 @@ class Bkash extends Payment
     /**
      * Get redirect url.
      *
+     * Returns the bKash payment initiation route.
+     * The BkashController will call the tokenized API and redirect to bKash.
+     *
      * @return string
      */
     public function getRedirectUrl()
     {
-        // TODO: Integrate bKash API
-        return route('shop.checkout.onepage.success');
+        return route('shop.bkash.pay');
     }
 
     /**

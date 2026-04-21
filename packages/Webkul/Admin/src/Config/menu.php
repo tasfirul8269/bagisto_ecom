@@ -51,11 +51,18 @@ return [
         'icon' => 'icon-sales',
     ],
     [
-        'key' => 'sales.orders',
-        'name' => 'admin::app.components.layouts.sidebar.orders',
+        'key'   => 'sales.orders',
+        'name'  => 'admin::app.components.layouts.sidebar.orders',
         'route' => 'admin.sales.orders.index',
-        'sort' => 1,
-        'icon' => '',
+        'sort'  => 1,
+        'icon'  => '',
+    ],
+    [
+        'key'   => 'sales.payment_methods',
+        'name'  => 'Payment Methods',
+        'route' => 'admin.sales.payment_methods.index',
+        'sort'  => 2,
+        'icon'  => '',
     ],
 
     // Customers (direct link, no sub-items)

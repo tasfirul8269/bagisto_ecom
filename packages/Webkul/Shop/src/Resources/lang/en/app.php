@@ -1010,6 +1010,13 @@ return [
                 'payment-cancelled'  => 'Payment was cancelled. Your cart has been preserved.',
                 'payment-error'     => 'An error occurred during payment processing. Please try again.',
             ],
+
+            'bkash' => [
+                'payment-failed'    => 'bKash payment failed. Please try again or choose a different payment method.',
+                'payment-cancelled'  => 'bKash payment was cancelled. Your cart has been preserved.',
+                'payment-error'     => 'An error occurred during bKash payment processing. Please try again.',
+                'payment-success'   => 'bKash payment successful.',
+            ],
             'qty-missing' => 'At least one product should have more than 1 quantity.',
             'return-to-shop' => 'Return To Shop',
             'rule-applied' => 'Cart rule applied',
